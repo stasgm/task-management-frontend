@@ -2,6 +2,6 @@
 
 ## Available Scripts
 
-In the project directory, you can run:
+To start the application you should run:
 
 ### `yarn start`

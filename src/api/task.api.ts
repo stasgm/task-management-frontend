@@ -3,6 +3,7 @@ import { CreateTaskDTO } from './dto/create-task.dto';
 import { UpdateTaskDTO } from './dto/update-task.dto';
 
 const serverUrl = 'http://localhost:3000';
+// const serverUrl = 'https://task-management-app-back.herokuapp.com';
 
 export class TaskAPI {
   public static async getAll(): Promise<TaskDTO[]> {
