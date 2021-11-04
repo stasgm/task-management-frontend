@@ -78,6 +78,10 @@ const TaskItem = ({ data, onTaskDelete, onTaskUpdate }: Props) => {
     <>
       <TableRow
         key={data.id}
+        style={{
+          color: getTaskStatusColor(data.status),
+          // color: 'white',
+        }}
         sx={{
           '&:last-child td, &:last-child th': { border: 0 },
           '&:nth-of-type(odd)': {

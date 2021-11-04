@@ -6,7 +6,6 @@ import { fakeAuthProvider } from '../../utils/auth';
 const Login = () => {
   const navigate = useNavigate();
   const handleLogin = () => fakeAuthProvider.signin(() => navigate('/'));
-  // const handleLogin = () => void 0;
 
   return (
     <div className="container">

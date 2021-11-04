@@ -46,16 +46,6 @@ const TaskList = () => {
     }
   };
 
-  // const handleUpdateTask = async (task: TaskDTO) => {
-  //   console.log('update an item: ', task);
-  //   try {
-  //     await TaskAPI.updateOne(task.id, task);
-  //     setTasks((prev) => prev.map((i) => (i.id === task.id ? task : i)));
-  //   } catch (err) {
-  //     console.log('Error: ', err);
-  //   }
-  // };
-
   const handleDeleteAllTasks = () => console.log('delete all items');
   const handleNewTask = useCallback(() => navigate('new'), [navigate]);
   const handleEditTask = useCallback((id) => navigate(id), [navigate]);
