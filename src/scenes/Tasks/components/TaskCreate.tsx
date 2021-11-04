@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import history from 'history/browser';
 import Button from '@mui/material/Button';
 
-import { TaskAPI } from '../api/task.api';
-import { TaskDTO } from '../api/dto/task.dto';
+import { TaskAPI } from '../../../api/task.api';
+// import { TaskDTO } from '../../../api/dto/task.dto';
 
-import './CreateTask.css';
+import '../styles.css';
 
-interface Props {
-  onTaskCreated: (task: TaskDTO) => void;
-}
+// interface Props {
+//   onTaskCreated: (task: TaskDTO) => void;
+// }
 
-const CreateTaskModal = (props: Props) => {
+const CreateTask = () => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState<undefined | string>(undefined);
+  const [description, setDescription] = useState('');
 
   const createTask = async () => {
     const resp = await TaskAPI.createOne({
@@ -21,15 +22,21 @@ const CreateTaskModal = (props: Props) => {
       description,
     });
 
-    props.onTaskCreated(resp);
+    // props.onTaskCreated(resp);
 
+    setTitle('');
+    setDescription('');
+
+    history.push('/tasks');
+  };
+
+  const handleClearTask = () => {
     setTitle('');
     setDescription('');
   };
 
-  const clearTask = () => {
-    setTitle('');
-    setDescription('');
+  const handleClose = () => {
+    history.push('/tasks');
   };
 
   return (
@@ -52,12 +59,15 @@ const CreateTaskModal = (props: Props) => {
         <Button color="primary" size="small" variant="contained" onClick={createTask} className="button">
           Add new task
         </Button>
-        <Button color="secondary" size="small" variant="contained" onClick={clearTask} className="button">
+        <Button color="secondary" size="small" variant="contained" onClick={handleClearTask} className="button">
           Clear
+        </Button>
+        <Button color="secondary" size="small" variant="contained" onClick={handleClose} className="button">
+          Close
         </Button>
       </div>
     </div>
   );
 };
 
-export default CreateTaskModal;
+export default CreateTask;

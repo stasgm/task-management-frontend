@@ -2,8 +2,14 @@ import { TaskDTO } from './dto/task.dto';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { UpdateTaskDTO } from './dto/update-task.dto';
 
-const serverUrl = 'http://localhost:3000';
-// const serverUrl = 'https://task-management-app-back.herokuapp.com';
+// const serverUrl = ;
+const serverUrl =
+  process.env.REACT_APP_ENV?.trim() === 'prod'
+    ? 'https://task-management-app-back.herokuapp.com'
+    : 'http://localhost:3000';
+
+console.log('REACT_APP_BASE_URL', process.env.REACT_APP_ENV?.trim());
+console.log('serverUrl', serverUrl);
 
 export class TaskAPI {
   public static async getAll(): Promise<TaskDTO[]> {
