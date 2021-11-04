@@ -1,42 +1,83 @@
-import { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import history from 'history/browser';
-import Button from '@mui/material/Button';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { TextField, Button } from '@mui/material';
 
 import { TaskAPI } from '../../../api/task.api';
-// import { TaskDTO } from '../../../api/dto/task.dto';
+import { TaskDTO, TaskStatus } from '../../../api/dto/task.dto';
 
 import '../styles.css';
 
-// interface Props {
-//   onTaskCreated: (task: TaskDTO) => void;
-// }
-
 const CreateTask = () => {
+  const navigate = useNavigate();
+  const params = useParams();
+
+  const [id, setId] = useState('');
+  const [status, setStatus] = useState<TaskStatus>(TaskStatus.OPEN);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  useEffect(() => {
+    async function fetchById(id: string) {
+      try {
+        const resp = await TaskAPI.getById(id);
+        setId(resp.id);
+        setStatus(resp.status);
+        setTitle(resp.title);
+        setDescription(resp.description);
+      } catch (e) {
+        console.error('error: ', e);
+      }
+    }
+
+    if (params.id) {
+      fetchById(params.id);
+    }
+  }, [params]);
+
+  const handleClose = () => navigate('/');
+
   const createTask = async () => {
-    const resp = await TaskAPI.createOne({
-      title,
-      description,
-    });
+    try {
+      const resp = await TaskAPI.createOne({
+        title,
+        description,
+      });
 
-    // props.onTaskCreated(resp);
+      handleClearTask();
+      handleClose();
+    } catch (err) {
+      console.log('Error: ', err);
+    }
+  };
 
-    setTitle('');
-    setDescription('');
+  const updateTask = async () => {
+    if (!id) return;
 
-    history.push('/tasks');
+    try {
+      const task: TaskDTO = {
+        id,
+        title,
+        description,
+        status,
+      };
+
+      const resp = await TaskAPI.updateOne(id, task);
+
+      if (resp) {
+        console.log('Task updated', resp);
+        handleClearTask();
+        handleClose();
+      } else {
+        console.log('Task is not updated', resp);
+      }
+    } catch (err) {
+      console.log('Error: ', err);
+    }
   };
 
   const handleClearTask = () => {
     setTitle('');
     setDescription('');
-  };
-
-  const handleClose = () => {
-    history.push('/tasks');
   };
 
   return (
@@ -56,8 +97,14 @@ const CreateTask = () => {
         onChange={(e) => setDescription(e.target.value)}
       />
       <div className="buttons">
-        <Button color="primary" size="small" variant="contained" onClick={createTask} className="button">
-          Add new task
+        <Button
+          color="primary"
+          size="small"
+          variant="contained"
+          onClick={id ? updateTask : createTask}
+          className="button"
+        >
+          {id ? 'Update' : 'Add new'} task
         </Button>
         <Button color="secondary" size="small" variant="contained" onClick={handleClearTask} className="button">
           Clear

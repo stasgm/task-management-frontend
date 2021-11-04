@@ -29,10 +29,7 @@ module.exports = {
     'import/namespace': ['error', { allowComputed: true }],
     'import/no-duplicates': 'error',
     'import/default': 'off',
-    'import/order': [
-      'warn',
-      { 'newlines-between': 'always-and-inside-groups' },
-    ],
+    'import/order': ['warn', { 'newlines-between': 'always-and-inside-groups' }],
     'import/no-cycle': 'error',
     'import/no-self-import': 'warn',
     'import/extensions': ['off', 'never', { ts: 'never' }],

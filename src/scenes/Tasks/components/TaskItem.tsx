@@ -1,23 +1,26 @@
-import React from 'react';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TableRow, TableCell, IconButton } from '@mui/material';
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
 import { TaskDTO, TaskStatus } from '../../../api/dto/task.dto';
-import { TaskAPI } from '../../../api/task.api';
 
 import theme from '../../../styles/theme';
 
 interface Props {
   data: TaskDTO;
   onTaskDelete: (taskId: string) => void;
-  onTaskUpdate: (task: TaskDTO) => void;
+  onTaskUpdate: () => void;
 }
 
 const TaskItem = ({ data, onTaskDelete, onTaskUpdate }: Props) => {
-  const deleteTask = async () => {
-    await TaskAPI.deleteOne(data.id);
+  const navigate = useNavigate();
+
+  const handleDeleteTask = async (id: string) => {
     onTaskDelete(data.id);
   };
+
+  const handleEditTask = useCallback((id) => navigate(id), [navigate]);
 
   const getTaskStatusToString = (status: TaskStatus) => {
     let text = '';
@@ -59,20 +62,38 @@ const TaskItem = ({ data, onTaskDelete, onTaskUpdate }: Props) => {
     return color;
   };
 
+  const EditActonIcon = ({ id }: { id: string }) => (
+    <IconButton onClick={() => handleEditTask(id)}>
+      <EditIcon />
+    </IconButton>
+  );
+
+  const DeleteActionIcon = ({ id }: { id: string }) => (
+    <IconButton onClick={() => handleDeleteTask(id)}>
+      <DeleteIcon color="action" />
+    </IconButton>
+  );
+
   return (
-    <TableRow
-      key={data.id}
-      sx={{
-        '&:last-child td, &:last-child th': { border: 0 },
-        '&:nth-of-type(odd)': {
-          backgroundColor: theme.palette.action.hover,
-        },
-      }}
-    >
-      <TableCell>{data.title}</TableCell>
-      <TableCell>{data.description}</TableCell>
-      <TableCell>{data.status}</TableCell>
-    </TableRow>
+    <>
+      <TableRow
+        key={data.id}
+        sx={{
+          '&:last-child td, &:last-child th': { border: 0 },
+          '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+          },
+        }}
+      >
+        <TableCell>{data.title}</TableCell>
+        <TableCell>{data.description}</TableCell>
+        <TableCell>{getTaskStatusToString(data.status)}</TableCell>
+        <TableCell>
+          <EditActonIcon id={data.id} />
+          <DeleteActionIcon id={data.id} />
+        </TableCell>
+      </TableRow>
+    </>
   );
 };
 

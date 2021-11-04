@@ -1,6 +1,7 @@
-import { Button, Table, TableBody, Paper, TableRow, TableHead, TableContainer, TableCell } from '@mui/material';
+import { Table, TableBody, Paper, TableRow, TableHead, TableContainer, TableCell, Button } from '@mui/material';
+
 import { useCallback, useEffect, useState } from 'react';
-import history from 'history/browser';
+import { useNavigate } from 'react-router-dom';
 
 import { TaskAPI } from '../../../api/task.api';
 import { TaskDTO } from '../../../api/dto/task.dto';
@@ -8,12 +9,17 @@ import { TaskDTO } from '../../../api/dto/task.dto';
 import TaskItem from './TaskItem';
 
 import '../styles.css';
+import ConfirmDialog from './ConfirmDialog';
 
 const page = 0;
 const rowsPerPage = 10;
 
 const TaskList = () => {
+  const navigate = useNavigate();
+
   const [tasks, setTasks] = useState<TaskDTO[]>([]);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [taskId, setTaskId] = useState('');
 
   useEffect(() => {
     async function fetchAll() {
@@ -30,31 +36,33 @@ const TaskList = () => {
     }
   }, []);
 
-  const handleAddTask = (task: TaskDTO) => {
-    setTasks([task, ...tasks]);
-    console.log('Add a new item: ', task);
-  };
-
-  const handleDeleteTask = (taskId: string) => {
-    setTasks(tasks.filter((x) => x.id !== taskId));
+  const handleDeleteTask = async () => {
     console.log('delete an item: ', taskId);
+    try {
+      await TaskAPI.deleteOne(taskId);
+      setTasks((prev) => prev.filter((i) => i.id !== taskId));
+    } catch (err) {
+      console.log('Error: ', err);
+    }
   };
 
-  const handleUpdateTask = (task: TaskDTO) => {
-    setTasks(
-      tasks.map((x) => {
-        if (x.id === task.id) return task;
-        return x;
-      }),
-    );
-    console.log('update an item: ', task);
-  };
+  // const handleUpdateTask = async (task: TaskDTO) => {
+  //   console.log('update an item: ', task);
+  //   try {
+  //     await TaskAPI.updateOne(task.id, task);
+  //     setTasks((prev) => prev.map((i) => (i.id === task.id ? task : i)));
+  //   } catch (err) {
+  //     console.log('Error: ', err);
+  //   }
+  // };
 
-  const handleDeleteAllTasks = () => {
-    console.log('delete all items');
+  const handleDeleteAllTasks = () => console.log('delete all items');
+  const handleNewTask = useCallback(() => navigate('new'), [navigate]);
+  const handleEditTask = useCallback((id) => navigate(id), [navigate]);
+  const showDeleteDialog = (taskId: string) => {
+    setTaskId(taskId);
+    setConfirmOpen(true);
   };
-
-  const handleNewTask = useCallback(() => history.push('tasks/new'), [history]);
 
   return (
     <>
@@ -72,18 +80,29 @@ const TaskList = () => {
         <Table sx={{ minWidth: 800 }} aria-label="Tasks">
           <TableHead>
             <TableRow>
-              <TableCell width="200px">Title</TableCell>
+              <TableCell width="150px">Title</TableCell>
               <TableCell>Description</TableCell>
               <TableCell width="30px">Status</TableCell>
+              <TableCell width="100px" align="center">
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {tasks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TaskItem key={row.id} data={row} onTaskDelete={handleDeleteTask} onTaskUpdate={handleUpdateTask} />
+              <TaskItem
+                key={row.id}
+                data={row}
+                onTaskDelete={showDeleteDialog}
+                onTaskUpdate={() => handleEditTask(row.id)}
+              />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <ConfirmDialog title="Delete task?" open={confirmOpen} setOpen={setConfirmOpen} onConfirm={handleDeleteTask}>
+        Are you sure you want to delete this task?
+      </ConfirmDialog>
     </>
   );
 };
