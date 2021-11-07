@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { Modal, makeStyles, TextField, Button, MenuItem, Select } from '@material-ui/core';
 
 // import { TaskAPI } from '../../../api/task.api';
-import { TaskDTO, TaskStatus } from '../../../api/dto/task.dto';
+import { TaskDto, TaskStatus } from '../../../services/tasks/dto/task.dto';
 
 const TaskEdit = () => {
   // const useStyles = makeStyles((theme) => ({

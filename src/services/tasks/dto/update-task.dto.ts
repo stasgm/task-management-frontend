@@ -1,6 +1,6 @@
 import { TaskStatus } from './task.dto';
 
-export interface UpdateTaskDTO {
+export interface UpdateTaskDto {
   title?: string;
   description?: string;
   status?: TaskStatus;

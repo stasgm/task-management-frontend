@@ -3,8 +3,8 @@ import { Table, TableBody, Paper, TableRow, TableHead, TableContainer, TableCell
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { TaskAPI } from '../../../api/task.api';
-import { TaskDTO } from '../../../api/dto/task.dto';
+import TasksService from '../../../services/tasks/tasks.service';
+import { TaskDto } from '../../../services/tasks/dto/task.dto';
 
 import TaskItem from './TaskItem';
 
@@ -17,15 +17,17 @@ const rowsPerPage = 10;
 const TaskList = () => {
   const navigate = useNavigate();
 
-  const [tasks, setTasks] = useState<TaskDTO[]>([]);
+  const [tasks, setTasks] = useState<TaskDto[]>([]);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [taskId, setTaskId] = useState('');
 
   useEffect(() => {
     async function fetchAll() {
       try {
-        const resp = await TaskAPI.getAll();
-        setTasks(resp);
+        const resp = await TasksService.fetchTasks();
+        if (resp) {
+          setTasks(resp);
+        }
       } catch (e) {
         console.error('error: ', e);
       }
@@ -39,7 +41,7 @@ const TaskList = () => {
   const handleDeleteTask = async () => {
     console.log('delete an item: ', taskId);
     try {
-      await TaskAPI.deleteOne(taskId);
+      await TasksService.deleteById(taskId);
       setTasks((prev) => prev.filter((i) => i.id !== taskId));
     } catch (err) {
       console.log('Error: ', err);

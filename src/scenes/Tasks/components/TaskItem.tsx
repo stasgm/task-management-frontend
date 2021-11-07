@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { TableRow, TableCell, IconButton } from '@mui/material';
 import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
-import { TaskDTO, TaskStatus } from '../../../api/dto/task.dto';
+import { TaskDto, TaskStatus } from '../../../services/tasks/dto/task.dto';
 
 import theme from '../../../styles/theme';
 
 interface Props {
-  data: TaskDTO;
+  data: TaskDto;
   onTaskDelete: (taskId: string) => void;
   onTaskUpdate: () => void;
 }

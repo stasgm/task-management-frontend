@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 
-import { TaskAPI } from '../../../api/task.api';
-import { TaskDTO, TaskStatus } from '../../../api/dto/task.dto';
+import TasksService from '../../../services/tasks/tasks.service';
+import { TaskDto, TaskStatus } from '../../../services/tasks/dto/task.dto';
 
 import '../styles.css';
 
@@ -19,11 +19,14 @@ const CreateTask = () => {
   useEffect(() => {
     async function fetchById(id: string) {
       try {
-        const resp = await TaskAPI.getById(id);
-        setId(resp.id);
-        setStatus(resp.status);
-        setTitle(resp.title);
-        setDescription(resp.description);
+        const resp = await TasksService.getById(id);
+
+        if (resp) {
+          setId(resp.id);
+          setStatus(resp.status);
+          setTitle(resp.title);
+          setDescription(resp.description);
+        }
       } catch (e) {
         console.error('error: ', e);
       }
@@ -38,13 +41,15 @@ const CreateTask = () => {
 
   const createTask = async () => {
     try {
-      const resp = await TaskAPI.createOne({
+      const resp = await TasksService.createTask({
         title,
         description,
       });
 
-      handleClearTask();
-      handleClose();
+      if (resp) {
+        handleClearTask();
+        handleClose();
+      }
     } catch (err) {
       console.log('Error: ', err);
     }
@@ -54,14 +59,14 @@ const CreateTask = () => {
     if (!id) return;
 
     try {
-      const task: TaskDTO = {
+      const task: TaskDto = {
         id,
         title,
         description,
         status,
       };
 
-      const resp = await TaskAPI.updateOne(id, task);
+      const resp = await TasksService.updateById(id, task);
 
       if (resp) {
         console.log('Task updated', resp);

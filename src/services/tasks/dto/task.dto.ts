@@ -1,4 +1,4 @@
-export interface TaskDTO {
+export interface TaskDto {
   id: string;
   title: string;
   description: string;

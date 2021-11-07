@@ -1,10 +1,12 @@
-import { TaskDTO } from './dto/task.dto';
+/* import { TaskDTO } from './dto/task.dto';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { UpdateTaskDTO } from './dto/update-task.dto';
 
 const serverUrl =
   process.env.REACT_APP_ENV?.trim() === 'prod'
     ? 'https://task-management-app-back.herokuapp.com'
+    : process.env.REACT_APP_ENV?.trim() === 'dev'
+    ? 'https://dev-task-management-app-back.herokuapp.com/api/v1'
     : 'http://localhost:3000';
 
 console.log('REACT_APP_ENV', process.env.REACT_APP_ENV?.trim());
@@ -65,3 +67,4 @@ export class TaskAPI {
     return data;
   }
 }
+ */
