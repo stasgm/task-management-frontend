@@ -2,12 +2,12 @@ import { Typography, AppBar, Toolbar, Link, Box, Button } from '@mui/material';
 
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { fakeAuthProvider } from '../utils/auth';
+import AuthProvider from '../utils/auth';
 
 const Header = () => {
   const navigate = useNavigate();
-  const handleLogout = () => fakeAuthProvider.signout(() => navigate('/'));
-  const handleLogin = () => fakeAuthProvider.signin(() => navigate('/'));
+  const handleLogout = () => AuthProvider.signout(() => navigate('/login'));
+  const handleLogin = () => navigate('/login');
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -18,7 +18,7 @@ const Header = () => {
               Home
             </Link>
           </Typography>
-          {fakeAuthProvider.isAuthenticated ? (
+          {AuthProvider.isAuthenticated ? (
             <Button color="inherit" onClick={handleLogout}>
               Log out
             </Button>

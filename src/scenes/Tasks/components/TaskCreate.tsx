@@ -21,11 +21,11 @@ const CreateTask = () => {
       try {
         const resp = await TasksService.getById(id);
 
-        if (resp) {
-          setId(resp.id);
-          setStatus(resp.status);
-          setTitle(resp.title);
-          setDescription(resp.description);
+        if (resp.success) {
+          setId(resp.data.id);
+          setStatus(resp.data.status);
+          setTitle(resp.data.title);
+          setDescription(resp.data.description);
         }
       } catch (e) {
         console.error('error: ', e);

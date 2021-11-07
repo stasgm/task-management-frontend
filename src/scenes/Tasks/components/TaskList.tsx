@@ -25,8 +25,8 @@ const TaskList = () => {
     async function fetchAll() {
       try {
         const resp = await TasksService.fetchTasks();
-        if (resp) {
-          setTasks(resp);
+        if (resp.success) {
+          setTasks(resp.data);
         }
       } catch (e) {
         console.error('error: ', e);

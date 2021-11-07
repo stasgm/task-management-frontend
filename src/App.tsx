@@ -5,11 +5,10 @@ import routes from './routes';
 import Header from './components/Header';
 
 import './App.css';
-import { fakeAuthProvider } from './utils/auth';
+import AuthProvider from './utils/auth';
 
 const Router = () => {
-  // const isLogged = authSelectors.isLogged();
-  const isLogged = fakeAuthProvider.isAuthenticated;
+  const isLogged = AuthProvider.isAuthenticated;
 
   return useRoutes(routes(isLogged));
 };

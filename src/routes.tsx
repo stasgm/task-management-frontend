@@ -2,8 +2,8 @@ import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
 
 import MainLayout from './components/MainLayout';
 import NotFound from './components/NotFound';
-import Login from './scenes/Auth/Login';
-import Register from './scenes/Auth/Register';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
 import appRoutes from './scenes/routes';
 
 const Apps = () => {
