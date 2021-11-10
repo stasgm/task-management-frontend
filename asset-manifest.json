@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "https://stasgm.github.io/task-management-frontend/static/css/main.6a6049dd.chunk.css",
+    "main.js": "https://stasgm.github.io/task-management-frontend/static/js/main.128b9807.chunk.js",
+    "main.js.map": "https://stasgm.github.io/task-management-frontend/static/js/main.128b9807.chunk.js.map",
+    "runtime-main.js": "https://stasgm.github.io/task-management-frontend/static/js/runtime-main.e1204613.js",
+    "runtime-main.js.map": "https://stasgm.github.io/task-management-frontend/static/js/runtime-main.e1204613.js.map",
+    "static/js/2.3c8c3eda.chunk.js": "https://stasgm.github.io/task-management-frontend/static/js/2.3c8c3eda.chunk.js",
+    "static/js/2.3c8c3eda.chunk.js.map": "https://stasgm.github.io/task-management-frontend/static/js/2.3c8c3eda.chunk.js.map",
+    "index.html": "https://stasgm.github.io/task-management-frontend/index.html",
+    "static/css/main.6a6049dd.chunk.css.map": "https://stasgm.github.io/task-management-frontend/static/css/main.6a6049dd.chunk.css.map",
+    "static/js/2.3c8c3eda.chunk.js.LICENSE.txt": "https://stasgm.github.io/task-management-frontend/static/js/2.3c8c3eda.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e1204613.js",
+    "static/js/2.3c8c3eda.chunk.js",
+    "static/css/main.6a6049dd.chunk.css",
+    "static/js/main.128b9807.chunk.js"
+  ]
+}
