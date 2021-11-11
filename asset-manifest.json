@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "https://stasgm.github.io/task-management-frontend/static/css/main.6a6049dd.chunk.css",
-    "main.js": "https://stasgm.github.io/task-management-frontend/static/js/main.babcd0ab.chunk.js",
-    "main.js.map": "https://stasgm.github.io/task-management-frontend/static/js/main.babcd0ab.chunk.js.map",
+    "main.js": "https://stasgm.github.io/task-management-frontend/static/js/main.0aad7f15.chunk.js",
+    "main.js.map": "https://stasgm.github.io/task-management-frontend/static/js/main.0aad7f15.chunk.js.map",
     "runtime-main.js": "https://stasgm.github.io/task-management-frontend/static/js/runtime-main.e1204613.js",
     "runtime-main.js.map": "https://stasgm.github.io/task-management-frontend/static/js/runtime-main.e1204613.js.map",
     "static/js/2.3c8c3eda.chunk.js": "https://stasgm.github.io/task-management-frontend/static/js/2.3c8c3eda.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.e1204613.js",
     "static/js/2.3c8c3eda.chunk.js",
     "static/css/main.6a6049dd.chunk.css",
-    "static/js/main.babcd0ab.chunk.js"
+    "static/js/main.0aad7f15.chunk.js"
   ]
 }
