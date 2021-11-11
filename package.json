@@ -12,7 +12,9 @@
     "start:dev": "cross-env PORT=3030 REACT_APP_ENV=dev react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.5.0",

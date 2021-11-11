@@ -3,7 +3,7 @@ import AuthService from '../services/auth/auth.service';
 const AuthProvider = {
   _isAuthenticated: false,
   get isAuthenticated(): boolean {
-    console.log('accessToken');
+    // console.log('accessToken');
     return !!AuthService.accessToken;
   },
   // signin(callback: () => void) {
