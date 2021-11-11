@@ -34,7 +34,7 @@ const Login = () => {
     enableReinitialize: true,
     initialValues: {
       username: 'Stas',
-      password: 'Aa!_123456!',
+      password: '123456781!aB',
     },
     validationSchema: yup.object({
       username: yup.string().required('Fill the field'),
