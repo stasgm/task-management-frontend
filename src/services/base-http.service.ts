@@ -2,12 +2,13 @@ import axios, { AxiosError } from 'axios';
 
 const appEnv = process.env.REACT_APP_ENV?.trim() || 'local-dev';
 const serverUrl =
-  appEnv === 'prod'
+  process.env.REACT_APP_BASE_URL || appEnv === 'prod'
     ? 'https://task-management-app-back.herokuapp.com'
     : appEnv === 'dev'
     ? 'https://dev-task-management-app-back.herokuapp.com/api/v1'
     : 'http://localhost:3000/api/v1';
 
+console.log('REACT_APP_BASE_URL', process.env.REACT_APP_BASE_URL);
 console.log('REACT_APP_ENV', appEnv);
 console.log('serverUrl', serverUrl);
 
