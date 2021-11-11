@@ -1,16 +1,20 @@
 import axios, { AxiosError } from 'axios';
 
 const appEnv = process.env.REACT_APP_ENV?.trim() || 'local-dev';
+
 const serverUrl =
-  process.env.REACT_APP_BASE_URL || appEnv === 'prod'
+  appEnv === 'prod'
     ? 'https://task-management-app-back.herokuapp.com'
     : appEnv === 'dev'
     ? 'https://dev-task-management-app-back.herokuapp.com/api/v1'
     : 'http://localhost:3000/api/v1';
 
-console.log('REACT_APP_BASE_URL', process.env.REACT_APP_BASE_URL);
+const appBaseUrl = process.env.REACT_APP_BASE_URL?.trim();
+
+console.log('REACT_APP_BASE_URL', appBaseUrl);
 console.log('REACT_APP_ENV', appEnv);
 console.log('serverUrl', serverUrl);
+console.log('baseUrl', appBaseUrl ? appBaseUrl : serverUrl);
 
 interface IApiResponse<T> {
   success: boolean;
@@ -32,7 +36,7 @@ export interface INetworkError {
 }
 
 export default abstract class BaseHttpService {
-  protected BASE_URL = serverUrl;
+  protected BASE_URL = appBaseUrl ? appBaseUrl : serverUrl;
   private _accessToken: string | null = null;
 
   protected async get<T>(endpoint: string, options = {}): Promise<IApiResponse<T> | IApiErrorResponse> {
